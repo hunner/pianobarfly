@@ -246,6 +246,7 @@ int BarFlyID3WriteFile(char const* file_path, struct id3_tag const* tag,
 	FILE* audio_file = NULL;
 	FILE* tmp_file = NULL;
 	uint8_t audio_buffer[BAR_FLY_COPY_BLOCK_SIZE];
+	char * tmp_path = NULL;
 	char tmp_file_path[TMP_FILE_PATH_LENGTH];
 	size_t read_count;
 	size_t write_count;
@@ -304,7 +305,8 @@ int BarFlyID3WriteFile(char const* file_path, struct id3_tag const* tag,
 	} else {
 		strncpy(tmp_file_path, file_path, TMP_FILE_PATH_LENGTH);
 		tmp_file_path[TMP_FILE_PATH_LENGTH - 1] = '\0';
-		dirname(tmp_file_path);
+		tmp_path = dirname(tmp_file_path);
+		strncpy(tmp_file_path, tmp_path, strlen(tmp_path) + 1);
 		strcat(tmp_file_path, "/");
 		strcat(tmp_file_path, BAR_FLY_TMP_MP3_FILE_NAME);
 	}
